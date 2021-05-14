@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as renderer from 'react-test-renderer'
-import createCss from '../src/index.js'
+import { createCss } from '../src/index.js'
 
 describe('Issue #416', () => {
 	test('Compound variants apply to composed components', () => {
@@ -8,7 +8,7 @@ describe('Issue #416', () => {
 
 		const Tile = styled('div', {
 			'--tile': 1,
-			variants: {
+			'variants': {
 				appearance: {
 					primary: {},
 					secondary: {
@@ -25,7 +25,7 @@ describe('Issue #416', () => {
 					},
 				},
 			},
-			compoundVariants: [
+			'compoundVariants': [
 				{
 					appearance: 'secondary',
 					color: 'lightBlue',
@@ -34,7 +34,7 @@ describe('Issue #416', () => {
 					},
 				},
 			],
-			defaultVariants: {
+			'defaultVariants': {
 				appearance: 'primary',
 				color: 'red',
 			},
@@ -42,7 +42,7 @@ describe('Issue #416', () => {
 
 		const RoundedTile = styled(Tile, {
 			'--rounded-tile': 1,
-			defaultVariants: {
+			'defaultVariants': {
 				appearance: 'secondary',
 				color: 'lightBlue',
 			},
@@ -66,22 +66,22 @@ describe('Issue #416', () => {
 
 		/* Normal variants */
 		// appearance: primary, color: red
-		expect(RenderOf(Tile, null, 'Red').props.className).toBe(`sxkpryy sxkpryy03kze--appearance-primary sxkpryy03kze--color-red`)
+		expect(RenderOf(Tile, null, 'Red').props.className).toBe(`c-kTjQBa c-kTjQBa-vPJLV-appearance-primary c-kTjQBa-vPJLV-color-red`)
 		// appearance: primary, color: lightblue
-		expect(RenderOf(Tile, { color: 'lightBlue' }, 'Blue').props.className).toBe(`sxkpryy sxkpryy03kze--appearance-primary sxkpryy2xt05--color-lightBlue`)
+		expect(RenderOf(Tile, { color: 'lightBlue' }, 'Blue').props.className).toBe(`c-kTjQBa c-kTjQBa-vPJLV-appearance-primary c-kTjQBa-vgOZlqi-color-lightBlue`)
 
 		/* Compound variants */
 		// appearance: primary, color: lightblue
-		expect(RenderOf(Tile, { appearance: 'secondary' }, 'Red').props.className).toBe(`sxkpryy sxkpryy8kgjb--appearance-secondary sxkpryy03kze--color-red`)
+		expect(RenderOf(Tile, { appearance: 'secondary' }, 'Red').props.className).toBe(`c-kTjQBa c-kTjQBa-vhSDooj-appearance-secondary c-kTjQBa-vPJLV-color-red`)
 		// appearance: secondary, compound*2
-		expect(RenderOf(Tile, { appearance: 'secondary', color: 'lightBlue' }, 'Red').props.className).toBe(`sxkpryy sxkpryy8kgjb--appearance-secondary sxkpryy2xt05--color-lightBlue sxkpryyt2yhf--c2`)
+		expect(RenderOf(Tile, { appearance: 'secondary', color: 'lightBlue' }, 'Red').props.className).toBe(`c-kTjQBa c-kTjQBa-vhSDooj-appearance-secondary c-kTjQBa-vgOZlqi-color-lightBlue c-kTjQBa-cljrRuW`)
 
 		/* ❌ Restyled compound variants (default) */
 		// appearance: primary, color: red, +
-		expect(RenderOf(RoundedTile, null, 'Blue').props.className).toBe(`sxkpryy sxkpryy8kgjb--appearance-secondary sxkpryy2xt05--color-lightBlue sxkpryyt2yhf--c2 sxhgh1l`)
+		expect(RenderOf(RoundedTile, null, 'Blue').props.className).toBe(`c-kTjQBa c-kTjQBa-vPJLV-appearance-primary c-kTjQBa-vPJLV-color-red c-gLsErE`)
 
 		/* ❌ Restyled compound variants (explicit) */
 		// appearance: secondary, compound * 2, +
-		expect(RenderOf(RoundedTile, { appearance: 'secondary', color: 'lightBlue' }, 'Blue').props.className).toBe(`sxkpryy sxkpryy8kgjb--appearance-secondary sxkpryy2xt05--color-lightBlue sxkpryyt2yhf--c2 sxhgh1l`)
+		expect(RenderOf(RoundedTile, { appearance: 'secondary', color: 'lightBlue' }, 'Blue').props.className).toBe(`c-kTjQBa c-kTjQBa-vhSDooj-appearance-secondary c-kTjQBa-vgOZlqi-color-lightBlue c-kTjQBa-cljrRuW c-gLsErE`)
 	})
 })
