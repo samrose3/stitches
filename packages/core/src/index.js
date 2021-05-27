@@ -209,7 +209,7 @@ const createCss = (initConfig) => {
 
 		const unitedCss = new StringSet([primalCss, variedCss, inlineCss])
 
-		let { variants: singularVariants, compoundVariants, defaultVariants, ...style } = initStyle
+		let { variants: singularVariants, compoundVariants, defaultVariants, label, ...style } = initStyle
 
 		defaultVariants = Object(defaultVariants)
 
